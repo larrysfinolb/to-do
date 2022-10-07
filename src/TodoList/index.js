@@ -1,12 +1,15 @@
 import React from 'react';
-import './TodoList.css';
+import './ToDoList.css';
 
-function TodoList(props) {
+export function ToDoList(props) {
   return (
     <section>
-      <ul>{props.children}</ul>
+      {props.error && props.onError()}
+      {props.loading && props.onLoading()}
+      {!props.loading && !props.totalToDos.length && props.onEmptyToDos()}
+      {!!props.totalToDos && !props.searchedToDos.length && props.onEmptySearch()}
+
+      <ul>{!props.loading && !props.error && props.searchedToDos.map(props.children)}</ul>
     </section>
   );
 }
-
-export { TodoList };
